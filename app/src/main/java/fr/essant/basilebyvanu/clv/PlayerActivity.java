@@ -12,9 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 public class PlayerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,39 @@ public class PlayerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Déclare mWebView à activity_main (le layout)
+        mWebView = (WebView) findViewById(R.id.activity_main_webview);
+
+        // Configure la webview pour l'utilisation du javascript
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        // Permet l'ouverture des fenêtres
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+
+        // Autorise le stockage DOM (Document Object Model)
+        webSettings.setDomStorageEnabled(true);
+
+        // Charge l'url
+        mWebView.loadUrl("https://google.com");
+
+        /*
+         * Les instructions ci-dessous permettent de forcer l'application
+         * à ouvrir les Url directement dans l'application et non dans
+         * un navigateur externe. MyAppWebViewClient() est la fonction
+         * contenue dans le fichier MyAppWebViewClient.java .
+         */
+
+        mWebView.setWebViewClient(new ctrlfagency.myapplication.MyAppWebViewClient() {
+            @Override
+            // Fonction qui permet l'affichage de la page lorsque tout est chargé (événement onPageFinished)
+
+            public void onPageFinished(WebView view, String url) {
+                findViewById(R.id.activity_main_webview).setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override
