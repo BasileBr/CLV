@@ -1,5 +1,6 @@
 package fr.essant.basilebyvanu.clv;
 
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,8 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class PlayerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,7 +62,15 @@ public class PlayerActivity extends AppCompatActivity
         webSettings.setDomStorageEnabled(true);
 
         // Charge l'url
-        mWebView.loadUrl("https://google.com");
+        mWebView.loadUrl("https://www.google.fr");
+        mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
+        mWebView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();
+            }
+        });
 
         /*
          * Les instructions ci-dessous permettent de forcer l'application
@@ -68,7 +79,7 @@ public class PlayerActivity extends AppCompatActivity
          * contenue dans le fichier MyAppWebViewClient.java .
          */
 
-        mWebView.setWebViewClient(new ctrlfagency.myapplication.MyAppWebViewClient() {
+        mWebView.setWebViewClient(new MyAppWebViewClient() {
             @Override
             // Fonction qui permet l'affichage de la page lorsque tout est chargé (événement onPageFinished)
 
