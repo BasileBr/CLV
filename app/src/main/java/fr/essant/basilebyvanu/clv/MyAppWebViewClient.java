@@ -1,4 +1,4 @@
-package ctrlfagency.myapplication;
+package fr.essant.basilebyvanu.clv;
 
 import android.content.Intent;
 import android.net.Uri;
