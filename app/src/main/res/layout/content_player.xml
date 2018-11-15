@@ -20,7 +20,6 @@
         android:layout_width="250dp"
         android:layout_height="250dp">
 
-
         <WebView
             android:id="@+id/activity_main_webview"
             android:layout_width="match_parent"
@@ -60,42 +59,42 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/debut"
             android:text="début"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/chapitre1"
+            android:layout_marginStart="8dp"
             android:text="chapitre 1"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/chapitre2"
+            android:layout_marginStart="8dp"
             android:text="chapitre 2"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/chapitre3"
+            android:layout_marginStart="8dp"
             android:text="chapitre 3"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="chapitre 4"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="chapitre 5"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/fin"
+            android:layout_marginStart="8dp"
             android:text="fin"/>
 
         </LinearLayout>

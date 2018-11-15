@@ -19,6 +19,7 @@ import android.webkit.URLUtil;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -31,6 +32,13 @@ public class PlayerActivity extends AppCompatActivity
     private VideoView mVideoView;
     private MediaController controller;
     private TextView mBufferingTextView;
+    private Button debut;
+    private Button chapitre1;
+    private Button chapitre2;
+    private Button chapitre3;
+    private Button fin;
+
+
     private int mCurrentPosition = 0;
     private static final String PLAYBACK_TIME = "play_time";
     private static final String VIDEO_SAMPLE = "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4";
@@ -52,6 +60,12 @@ public class PlayerActivity extends AppCompatActivity
         //récupère l'identifiant de l'object textview pour afficher un message d'attente lors du chargement de la vidéo
         mBufferingTextView = findViewById(R.id.buffering_textview);
 
+        debut=findViewById(R.id.debut);
+        chapitre1=findViewById(R.id.chapitre1);
+        chapitre2=findViewById(R.id.chapitre2);
+        chapitre3=findViewById(R.id.chapitre3);
+        fin=findViewById(R.id.fin);
+
         //récupère l'identifiant de la vidéo
         mVideoView = findViewById(R.id.videoview);
 
@@ -64,9 +78,6 @@ public class PlayerActivity extends AppCompatActivity
         controller = new MediaController(this);
         controller.setMediaPlayer(mVideoView);
         mVideoView.setMediaController(controller);
-
-
-
 
 
 
@@ -128,6 +139,44 @@ public class PlayerActivity extends AppCompatActivity
             }
         });
 
+        //chapitres
+        debut.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mVideoView.seekTo(0);
+                mVideoView.start();
+            }
+        });
+
+        chapitre1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mVideoView.seekTo(120000);
+                mVideoView.start();
+            }
+        });
+
+        chapitre2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mVideoView.seekTo(360000);
+                mVideoView.start();
+            }
+        });
+
+        chapitre3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mVideoView.seekTo(480000);
+                mVideoView.start();
+            }
+        });
+
+        fin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mVideoView.seekTo(585000);
+                mVideoView.start();
+            }
+        });
+
+
+
     }
 
     /**
@@ -166,8 +215,9 @@ public class PlayerActivity extends AppCompatActivity
                         mVideoView.start();
                     }
                 });
-        //mVideoView.start();
     }
+
+
 
 
     /**
