@@ -1,6 +1,8 @@
 package fr.essant.basilebyvanu.clv;
 
 import android.net.http.SslError;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,22 +15,52 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.URLUtil;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.MediaController;
+import android.widget.TextView;
+import android.widget.VideoView;
 import android.webkit.WebViewClient;
 
 public class PlayerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private WebView mWebView;
-
+    private VideoView mVideoView;
+    private MediaController controller;
+    private TextView mBufferingTextView;
+    private int mCurrentPosition = 0;
+    private static final String PLAYBACK_TIME = "play_time";
+    private static final String VIDEO_SAMPLE = "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //récupère l'identifiant de l'object textview pour afficher un message d'attente lors du chargement de la vidéo
+        mBufferingTextView = findViewById(R.id.buffering_textview);
+
+        //récupère l'identifiant de la vidéo
+        mVideoView = findViewById(R.id.videoview);
+
+
+        if (savedInstanceState != null) {
+            mCurrentPosition = savedInstanceState.getInt(PLAYBACK_TIME);
+        }
+
+        //création du média controler et association du media avec la vidéo
+        MediaController controller = new MediaController(this);
+        controller.setMediaPlayer(mVideoView);
+        mVideoView.setMediaController(controller);
+
+
+
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +122,66 @@ public class PlayerActivity extends AppCompatActivity
 
     }
 
+    /**
+     * initialiser le player video
+     */
+    private void initializePlayer() {
+
+        //afficher le texte de chargement de la vidéo
+        mBufferingTextView.setVisibility(VideoView.VISIBLE);
+
+        //récupération du lien de la vidéo
+        Uri videoUri = getMedia(VIDEO_SAMPLE);
+
+        //charger la vidéo dans la Video view
+        mVideoView.setVideoURI(videoUri);
+
+
+
+
+        //retirer le texte de chargement lorsque la vidéo dépasse 1msec
+        mVideoView.setOnPreparedListener(
+                new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mediaPlayer) {
+                        mBufferingTextView.setVisibility(VideoView.INVISIBLE);
+
+                        //controller.setAnchorView(mVideoView);
+
+
+                        if (mCurrentPosition > 0) {
+                            mVideoView.seekTo(mCurrentPosition);
+                        } else {
+                            mVideoView.seekTo(1);
+                        }
+
+                        mVideoView.start();
+                    }
+                });
+        //mVideoView.start();
+    }
+
+    /**
+     * Stoper la vidéo et libérer les ressources associées
+     */
+    private void releasePlayer() {
+        mVideoView.stopPlayback();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        initializePlayer();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        releasePlayer();
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -98,6 +190,15 @@ public class PlayerActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Save the current playback position (in milliseconds) to the
+        // instance state bundle.
+        outState.putInt(PLAYBACK_TIME, mVideoView.getCurrentPosition());
     }
 
     @Override
@@ -145,5 +246,20 @@ public class PlayerActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+//    private Uri getMedia(String mediaName) {
+//        return Uri.parse("android.resource://" + getPackageName() +
+//                "/raw/" + mediaName);
+//    }
+
+    private Uri getMedia(String mediaName) {
+        if (URLUtil.isValidUrl(mediaName)) {
+            // media name is an external URL
+            return Uri.parse(mediaName);
+        } else { // media name is a raw resource embedded in the app
+            return Uri.parse("android.resource://" + getPackageName() +
+                    "/raw/" + mediaName);
+        }
     }
 }
