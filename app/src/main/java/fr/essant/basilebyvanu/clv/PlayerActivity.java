@@ -53,7 +53,7 @@ public class PlayerActivity extends AppCompatActivity
         }
 
         //création du média controler et association du media avec la vidéo
-        MediaController controller = new MediaController(this);
+        controller = new MediaController(this);
         controller.setMediaPlayer(mVideoView);
         mVideoView.setMediaController(controller);
 
@@ -131,7 +131,7 @@ public class PlayerActivity extends AppCompatActivity
         mBufferingTextView.setVisibility(VideoView.VISIBLE);
 
         //récupération du lien de la vidéo
-        Uri videoUri = getMedia(VIDEO_SAMPLE);
+        final Uri videoUri = getMedia(VIDEO_SAMPLE);
 
         //charger la vidéo dans la Video view
         mVideoView.setVideoURI(videoUri);
@@ -146,7 +146,7 @@ public class PlayerActivity extends AppCompatActivity
                     public void onPrepared(MediaPlayer mediaPlayer) {
                         mBufferingTextView.setVisibility(VideoView.INVISIBLE);
 
-                        //controller.setAnchorView(mVideoView);
+                        controller.setAnchorView(mVideoView);
 
 
                         if (mCurrentPosition > 0) {
@@ -160,6 +160,7 @@ public class PlayerActivity extends AppCompatActivity
                 });
         //mVideoView.start();
     }
+
 
     /**
      * Stoper la vidéo et libérer les ressources associées
