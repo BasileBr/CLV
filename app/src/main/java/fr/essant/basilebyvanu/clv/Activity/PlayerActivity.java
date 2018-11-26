@@ -1,4 +1,4 @@
-package fr.essant.basilebyvanu.clv;
+package fr.essant.basilebyvanu.clv.Activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -30,6 +30,10 @@ import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 import android.webkit.WebViewClient;
+
+import fr.essant.basilebyvanu.clv.MyAppWebViewClient;
+import fr.essant.basilebyvanu.clv.NameViewModel;
+import fr.essant.basilebyvanu.clv.R;
 
 public class PlayerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
