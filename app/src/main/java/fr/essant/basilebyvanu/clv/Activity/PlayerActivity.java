@@ -2,38 +2,39 @@ package fr.essant.basilebyvanu.clv.Activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-
-import android.net.http.SslError;
-
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.URLUtil;
+import android.view.View;
 import android.webkit.SslErrorHandler;
+import android.webkit.URLUtil;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
-import android.webkit.WebViewClient;
+
+import java.io.IOException;
+import java.text.ParseException;
 
 import fr.essant.basilebyvanu.clv.MyAppWebViewClient;
 import fr.essant.basilebyvanu.clv.NameViewModel;
+import fr.essant.basilebyvanu.clv.Objet.MenuChapitre;
 import fr.essant.basilebyvanu.clv.R;
+
 
 public class PlayerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,6 +59,11 @@ public class PlayerActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
+
+        MenuChapitre test = new MenuChapitre();
+        test.readFromJson(this);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
