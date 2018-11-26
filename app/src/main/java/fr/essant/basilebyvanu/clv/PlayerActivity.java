@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 
 import android.net.http.SslError;
+
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
