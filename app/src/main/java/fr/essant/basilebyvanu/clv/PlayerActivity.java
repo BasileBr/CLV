@@ -1,9 +1,13 @@
 package fr.essant.basilebyvanu.clv;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+
 import android.net.http.SslError;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -38,6 +42,8 @@ public class PlayerActivity extends AppCompatActivity
     private Button chapitre2;
     private Button chapitre3;
     private Button fin;
+
+    private NameViewModel mModel;
 
 
     private int mCurrentPosition = 0;
@@ -143,39 +149,98 @@ public class PlayerActivity extends AppCompatActivity
         //chapitres
         debut.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mVideoView.seekTo(0);
-                mVideoView.start();
+                mModel.setmCurrentPosition(mCurrentPosition);
+                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+               // mVideoView.seekTo(0);
+              //  mVideoView.start();
+                //mCurrentPosition=0;
+//                mModel.setPosition(mCurrentPosition);
+//                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+
+
+
             }
         });
 
         chapitre1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mVideoView.seekTo(120000);
-                mVideoView.start();
+               // mVideoView.seekTo(120000);
+               // mVideoView.start();
+                //mCurrentPosition=120000;
+//                mModel.setPosition(mCurrentPosition);
+//                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+                mModel.setmCurrentPosition(mCurrentPosition);
+                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
             }
         });
 
         chapitre2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mVideoView.seekTo(360000);
-                mVideoView.start();
+//                mVideoView.seekTo(360000);
+//                mVideoView.start();
+                mModel.setmCurrentPosition(mCurrentPosition);
+                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+                //mCurrentPosition=360000;
+                //mModel.getCurrentName().setValue(360000);
+//                mModel.setPosition(mCurrentPosition);
+//                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
             }
         });
 
         chapitre3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mVideoView.seekTo(480000);
-                mVideoView.start();
+                mModel.setmCurrentPosition(mCurrentPosition);
+                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+//                mVideoView.seekTo(480000);
+//                mVideoView.start();
+//                mCurrentPosition=480000;
+               // mModel.getCurrentName().setValue(480000);
+//                mModel.setPosition(mCurrentPosition);
+//                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
             }
         });
 
         fin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mVideoView.seekTo(585000);
-                mVideoView.start();
+                mModel.setmCurrentPosition(mCurrentPosition);
+                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+//                mVideoView.seekTo(585000);
+//                mVideoView.start();
+//                mCurrentPosition=585000;
+////               // mModel.getCurrentName().setValue(585000);
+//                mModel.setPosition(mCurrentPosition);
+//                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+//                Log.d("valeur actuelle",String.valueOf(mModel.getmCurrentPosition().getValue()));
             }
         });
 
+        // Get the ViewModel.
+
+
+
+        mModel = ViewModelProviders.of(this).get(NameViewModel.class);
+
+
+        // Create the observer which updates the UI.
+        final Observer<Integer> nameObserver = new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable final Integer newValue) {
+                // Update the UI, in this case, a TextView.
+                mCurrentPosition=newValue;
+                Log.d("Observer",newValue.toString());
+
+                //debut.setBackgroundColor(0xFFFF0000);
+                //mCurrentPosition=newValue;
+                //mNameTextView.setText(newName);
+            }
+        };
+
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+       mModel.getmCurrentPosition().observe(this, nameObserver);
+
+
+
+       // mModel.
         //seekcomplete
 
     }
