@@ -5,13 +5,15 @@ public class Chapitre {
     private int temps;
     private String nom;
     private int numero;
+    private String lien;
 
 
 
-    public Chapitre(String nom, int temps, int numero) {
+    public Chapitre(String nom, int temps, int numero, String lien) {
         this.temps = temps;
         this.nom = nom;
         this.numero = numero;
+        this.lien = lien;
     }
 
     public String getNom() {
@@ -36,5 +38,13 @@ public class Chapitre {
 
     public void setNumero(int numero) {
         this.numero = numero;
+    }
+
+    public String getLien() {
+        return lien;
+    }
+
+    public void setLien(String lien) {
+        this.lien = lien;
     }
 }

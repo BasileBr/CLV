@@ -60,8 +60,10 @@ public class PlayerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
-        MenuChapitre test = new MenuChapitre();
-        test.readFromJson(this);
+        final MenuChapitre test = new MenuChapitre(this);
+
+
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -120,7 +122,7 @@ public class PlayerActivity extends AppCompatActivity
         // Déclare mWebView à activity_main (le layout)
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
 
-        // Configure la webview pour l'utilisation du javascript
+        // Configure la webview pour l'utihttps://google.com/lisation du javascript
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
@@ -160,8 +162,19 @@ public class PlayerActivity extends AppCompatActivity
         //chapitres
         debut.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                mVideoView.seekTo(0);
                 mModel.setmCurrentPosition(mCurrentPosition);
-                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+                mWebView.loadUrl(test.getChapitre(0).getLien().replace("\""," "));
+                mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
+                mWebView.setWebViewClient(new WebViewClient() {
+
+                    @Override
+                    public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+                        handler.proceed();
+                    }
+                });
+                Log.d("PlayerActicity",test.getChapitre(10).getLien().replace("\""," "));
                // mVideoView.seekTo(0);
               //  mVideoView.start();
                 //mCurrentPosition=0;
@@ -181,47 +194,68 @@ public class PlayerActivity extends AppCompatActivity
 //                mModel.setPosition(mCurrentPosition);
 //                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
                 mModel.setmCurrentPosition(mCurrentPosition);
-                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+                mVideoView.seekTo(100000);
+                mWebView.loadUrl(test.getChapitre(10).getLien().replace("\""," "));
+                mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
+                mWebView.setWebViewClient(new WebViewClient() {
+
+                    @Override
+                    public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+                        handler.proceed();
+                    }
+                });
+                Log.d("PlayerActicity",test.getChapitre(10).getLien().replace("\""," "));
             }
         });
 
         chapitre2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                mVideoView.seekTo(360000);
-//                mVideoView.start();
                 mModel.setmCurrentPosition(mCurrentPosition);
-                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
-                //mCurrentPosition=360000;
-                //mModel.getCurrentName().setValue(360000);
-//                mModel.setPosition(mCurrentPosition);
-//                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+                mVideoView.seekTo(200000);
+                mWebView.loadUrl(test.getChapitre(20).getLien().replace("\""," "));
+                mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
+                mWebView.setWebViewClient(new WebViewClient() {
+
+                    @Override
+                    public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+                        handler.proceed();
+                    }
+                });
+                Log.d("PlayerActicity",test.getChapitre(20).getLien().replace("\""," "));
             }
         });
 
         chapitre3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                mVideoView.seekTo(300000);
                 mModel.setmCurrentPosition(mCurrentPosition);
-                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
-//                mVideoView.seekTo(480000);
-//                mVideoView.start();
-//                mCurrentPosition=480000;
-               // mModel.getCurrentName().setValue(480000);
-//                mModel.setPosition(mCurrentPosition);
-//                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+                mWebView.loadUrl(test.getChapitre(30).getLien().replace("\""," "));
+                mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
+                mWebView.setWebViewClient(new WebViewClient() {
+
+                    @Override
+                    public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+                        handler.proceed();
+                    }
+                });
+                Log.d("PlayerActicity",test.getChapitre(30).getLien().replace("\""," "));
             }
         });
 
         fin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                mVideoView.seekTo(400000);
                 mModel.setmCurrentPosition(mCurrentPosition);
-                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
-//                mVideoView.seekTo(585000);
-//                mVideoView.start();
-//                mCurrentPosition=585000;
-////               // mModel.getCurrentName().setValue(585000);
-//                mModel.setPosition(mCurrentPosition);
-//                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
-//                Log.d("valeur actuelle",String.valueOf(mModel.getmCurrentPosition().getValue()));
+                mWebView.loadUrl(test.getChapitre(40).getLien().replace("\""," "));
+                mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
+                mWebView.setWebViewClient(new WebViewClient() {
+
+                    @Override
+                    public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+                        handler.proceed();
+                    }
+                });
+                Log.d("PlayerActicity",test.getChapitre(40).getLien().replace("\""," "));
             }
         });
 
