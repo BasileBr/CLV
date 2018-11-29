@@ -1,7 +1,9 @@
 package fr.essant.basilebyvanu.clv.Activity;
 
+import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -29,6 +31,10 @@ import android.widget.VideoView;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ConcurrentModificationException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import fr.essant.basilebyvanu.clv.MyAppWebViewClient;
 import fr.essant.basilebyvanu.clv.NameViewModel;
@@ -51,8 +57,10 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
     private int mCurrentPosition = 0;
     private static final String PLAYBACK_TIME = "play_time";
     private static final String VIDEO_SAMPLE = "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4";
+    public Observer<Integer> nameObserver;
 
     private MenuChapitre test;
+    public Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +146,7 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
     private void initializePlayer() {
 
         // Create the observer which updates the UI.
-        final Observer<Integer> nameObserver = new Observer<Integer>() {
+        nameObserver = new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable final Integer newValue) {
                 // Update the UI, in this case, a TextView.
@@ -183,6 +191,8 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         mModel.getmCurrentPosition().observe(this, nameObserver);
 
+        context = this;
+
         //afficher le texte de chargement de la vidéo
         mBufferingTextView.setVisibility(VideoView.VISIBLE);
 
@@ -218,6 +228,9 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
                 findViewById(R.id.activity_main_webview).setVisibility(View.VISIBLE);
             }
         });
+        String[] strings = null;
+
+        main(strings);
 
         //retirer le texte de chargement lorsque la vidéo dépasse 1msec
         mVideoView.setOnPreparedListener(
@@ -467,5 +480,22 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
             return Uri.parse("android.resource://" + getPackageName() +
                     "/raw/" + mediaName);
         }
+    }
+
+    public void main(String[] args) {
+        final Runnable task = new Runnable() {
+
+            @Override
+            public void run() {
+
+                mCurrentPosition = mVideoView.getCurrentPosition();
+                System.out.println("exécuté toutes les secondes" + String.valueOf(mCurrentPosition));
+                mModel.getmCurrentPosition().observe(context, nameObserver);
+            }
+        };
+
+        final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
+
     }
 }
