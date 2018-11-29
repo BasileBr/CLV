@@ -51,23 +51,24 @@ public class NameViewModel extends ViewModel {
     // Create a LiveData with a String
     private MutableLiveData<Integer> mCurrentPosition;
 
-    public NameViewModel (){
-        this.mCurrentPosition = new MutableLiveData<>();
-    }
-//    public MutableLiveData<Integer> getmCurrentPosition() {
-//        if (mCurrentPosition == null) {
-//            mCurrentPosition = new MutableLiveData<Integer>();
-//        }
-//        return mCurrentPosition;
+//    public NameViewModel (){
+//        this.mCurrentPosition = new MutableLiveData<>();
 //    }
 
-    public LiveData<Integer> getmCurrentPosition(){
+    public MutableLiveData<Integer> getmCurrentPosition() {
+        if (mCurrentPosition == null) {
+            mCurrentPosition = new MutableLiveData<Integer>();
+        }
         return mCurrentPosition;
     }
 
-    public void setmCurrentPosition(int pos){
-        mCurrentPosition.setValue(new Integer(pos));
-    }
+//    public LiveData<Integer> getmCurrentPosition(){
+//        return mCurrentPosition;
+//    }
+
+//    public void setmCurrentPosition(int pos){
+//        mCurrentPosition.setValue(new Integer(pos));
+//    }
 
 
 }
