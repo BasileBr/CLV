@@ -1,4 +1,4 @@
-package fr.essant.basilebyvanu.clv;
+package fr.essant.basilebyvanu.clv.Model;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

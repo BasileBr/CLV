@@ -1,23 +1,16 @@
 package fr.essant.basilebyvanu.clv.Activity;
 
-import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
@@ -29,20 +22,17 @@ import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ConcurrentModificationException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import fr.essant.basilebyvanu.clv.MyAppWebViewClient;
-import fr.essant.basilebyvanu.clv.NameViewModel;
+import fr.essant.basilebyvanu.clv.Model.NameViewModel;
 import fr.essant.basilebyvanu.clv.Objet.MenuChapitre;
 import fr.essant.basilebyvanu.clv.R;
 
 
-public class PlayerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class PlayerActivity extends AppCompatActivity{
 
     private WebView mWebView;
     private VideoView mVideoView;
@@ -60,7 +50,6 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
     public Observer<Integer> nameObserver;
 
     private MenuChapitre test;
-    public Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +61,6 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         //récupère l'identifiant de l'object textview pour afficher un message d'attente lors du chargement de la vidéo
         mBufferingTextView = findViewById(R.id.buffering_textview);
@@ -102,23 +83,6 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
         //controller.setMediaPlayer(mVideoView);
         mVideoView.setMediaController(controller);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
         // Déclare mWebView à activity_main (le layout)
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
@@ -154,44 +118,53 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
                 mCurrentPosition=mModel.getmCurrentPosition().getValue();
                 Log.d("Observer",Integer.toString(mCurrentPosition));
 
-//                switch (mCurrentPosition){
-//                    case (mCurrentPosition<100000) : debut.setBackgroundColor(0xFFFF0000);
-//                        break;
-//                    case 100000 : chapitre1.setBackgroundColor(0xFFFF0000);
-//                        break;
-//                    case 200000 : chapitre2.setBackgroundColor(0xFFFF0000);
-//                        break;
-//                    case 300000 : chapitre3.setBackgroundColor(0xFFFF0000);
-//                        break;
-//                    case 400000 : fin.setBackgroundColor(0xFFFF0000);
-//                        break;
-//                }
                 if(mCurrentPosition<100000){
                     debut.setBackgroundColor(0xFFFF0000);
+                    chapitre1.setBackgroundColor(android.R.drawable.btn_default);
+                    chapitre2.setBackgroundColor(android.R.drawable.btn_default);
+                    chapitre3.setBackgroundColor(android.R.drawable.btn_default);
+                    fin.setBackgroundColor(android.R.drawable.btn_default);
                 }
                 if(mCurrentPosition<200000 && mCurrentPosition>=100000){
                      chapitre1.setBackgroundColor(0xFFFF0000);
+
+                     debut.setBackgroundColor(android.R.drawable.btn_default);
+                     chapitre2.setBackgroundColor(android.R.drawable.btn_default);
+                     chapitre3.setBackgroundColor(android.R.drawable.btn_default);
+                     fin.setBackgroundColor(android.R.drawable.btn_default);
                 }
                 if(mCurrentPosition<300000 && mCurrentPosition>=200000){
                     chapitre2.setBackgroundColor(0xFFFF0000);
+
+                    debut.setBackgroundColor(android.R.drawable.btn_default);
+                    chapitre1.setBackgroundColor(android.R.drawable.btn_default);
+                    chapitre3.setBackgroundColor(android.R.drawable.btn_default);
+                    fin.setBackgroundColor(android.R.drawable.btn_default);
                 }
                 if(mCurrentPosition<400000 && mCurrentPosition>=300000){
                     chapitre3.setBackgroundColor(0xFFFF0000);
+
+                    debut.setBackgroundColor(android.R.drawable.btn_default);
+                    chapitre1.setBackgroundColor(android.R.drawable.btn_default);
+                    chapitre2.setBackgroundColor(android.R.drawable.btn_default);
+                    fin.setBackgroundColor(android.R.drawable.btn_default);
                 }
                 if(mCurrentPosition>=400000){
                     fin.setBackgroundColor(0xFFFF0000);
+
+                    debut.setBackgroundColor(android.R.drawable.btn_default);
+                    chapitre1.setBackgroundColor(android.R.drawable.btn_default);
+                    chapitre2.setBackgroundColor(android.R.drawable.btn_default);
+                    chapitre3.setBackgroundColor(android.R.drawable.btn_default);
+
                 }
 
-                //debut.setBackgroundColor(0xFFFF0000);
-                //mCurrentPosition=newValue;
-                //mNameTextView.setText(newName);
             }
         };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         mModel.getmCurrentPosition().observe(this, nameObserver);
 
-        context = this;
 
         //afficher le texte de chargement de la vidéo
         mBufferingTextView.setVisibility(VideoView.VISIBLE);
@@ -264,11 +237,7 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
                                     }
                                 });
                                 Log.d("PlayerActicity",test.getChapitre(10).getLien().replace("\""," "));
-                                // mVideoView.seekTo(0);
-                                //  mVideoView.start();
-                                //mCurrentPosition=0;
-                //                mModel.setPosition(mCurrentPosition);
-                //                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+
                                 mVideoView.seekTo(0);
                                 mCurrentPosition = mediaPlayer.getCurrentPosition();
                                 mModel.getmCurrentPosition().setValue(mCurrentPosition);
@@ -277,13 +246,7 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
 
                         chapitre1.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
-                                // mVideoView.seekTo(120000);
-                                // mVideoView.start();
-                                //mCurrentPosition=120000;
-                //                mModel.setPosition(mCurrentPosition);
-                //                mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
 
-                                // mModel.setmCurrentPosition(mCurrentPosition);
 
                                 mWebView.loadUrl(test.getChapitre(10).getLien().replace("\""," "));
                                 mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
@@ -373,10 +336,11 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
                                 mModel.getmCurrentPosition().setValue(seek_pos);
                             }
                         });
+
+
                     }
                 });
     }
-
 
 
 
@@ -401,15 +365,6 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
         releasePlayer();
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -427,50 +382,7 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            Log.d("coucou","basile");
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-//    private Uri getMedia(String mediaName) {
-//        return Uri.parse("android.resource://" + getPackageName() +
-//                "/raw/" + mediaName);
-//    }
 
     private Uri getMedia(String mediaName) {
         if (URLUtil.isValidUrl(mediaName)) {
@@ -490,7 +402,9 @@ public class PlayerActivity extends AppCompatActivity implements NavigationView.
 
                 mCurrentPosition = mVideoView.getCurrentPosition();
                 System.out.println("exécuté toutes les secondes" + String.valueOf(mCurrentPosition));
-                mModel.getmCurrentPosition().observe(context, nameObserver);
+                mModel.getmCurrentPosition().setValue(mCurrentPosition);
+
+
             }
         };
 
