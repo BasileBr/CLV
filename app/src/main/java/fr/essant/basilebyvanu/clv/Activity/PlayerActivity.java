@@ -124,16 +124,30 @@ public class PlayerActivity extends AppCompatActivity{
                     chapitre2.setBackgroundColor(android.R.drawable.btn_default);
                     chapitre3.setBackgroundColor(android.R.drawable.btn_default);
                     fin.setBackgroundColor(android.R.drawable.btn_default);
+
+                    String lien = test.getChapitre(0).getLien().replace("\""," ");
+                    mWebView.setWebViewClient(new WebViewClient());
+                    mWebView.loadUrl(lien);
+                    mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
+
+
                 }
                 if(mCurrentPosition<200000 && mCurrentPosition>=100000){
-                     chapitre1.setBackgroundColor(0xFFFF0000);
+                    mWebView.setWebViewClient(new WebViewClient());
+                    mWebView.loadUrl(test.getChapitre(10).getLien().replace("\""," "));
 
-                     debut.setBackgroundColor(android.R.drawable.btn_default);
-                     chapitre2.setBackgroundColor(android.R.drawable.btn_default);
-                     chapitre3.setBackgroundColor(android.R.drawable.btn_default);
-                     fin.setBackgroundColor(android.R.drawable.btn_default);
+
+                    chapitre1.setBackgroundColor(0xFFFF0000);
+                    debut.setBackgroundColor(android.R.drawable.btn_default);
+                    chapitre2.setBackgroundColor(android.R.drawable.btn_default);
+                    chapitre3.setBackgroundColor(android.R.drawable.btn_default);
+                    fin.setBackgroundColor(android.R.drawable.btn_default);
+
                 }
                 if(mCurrentPosition<300000 && mCurrentPosition>=200000){
+                    mWebView.setWebViewClient(new WebViewClient());
+                    mWebView.loadUrl(test.getChapitre(20).getLien().replace("\""," "));
+
                     chapitre2.setBackgroundColor(0xFFFF0000);
 
                     debut.setBackgroundColor(android.R.drawable.btn_default);
@@ -142,6 +156,9 @@ public class PlayerActivity extends AppCompatActivity{
                     fin.setBackgroundColor(android.R.drawable.btn_default);
                 }
                 if(mCurrentPosition<400000 && mCurrentPosition>=300000){
+                    mWebView.setWebViewClient(new WebViewClient());
+                    mWebView.loadUrl(test.getChapitre(30).getLien().replace("\""," "));
+
                     chapitre3.setBackgroundColor(0xFFFF0000);
 
                     debut.setBackgroundColor(android.R.drawable.btn_default);
@@ -150,6 +167,9 @@ public class PlayerActivity extends AppCompatActivity{
                     fin.setBackgroundColor(android.R.drawable.btn_default);
                 }
                 if(mCurrentPosition>=400000){
+                    mWebView.setWebViewClient(new WebViewClient());
+                    mWebView.loadUrl(test.getChapitre(40).getLien().replace("\""," "));
+
                     fin.setBackgroundColor(0xFFFF0000);
 
                     debut.setBackgroundColor(android.R.drawable.btn_default);
@@ -176,6 +196,7 @@ public class PlayerActivity extends AppCompatActivity{
         mVideoView.setVideoURI(videoUri);
 
         // Charge l'url
+
         mWebView.loadUrl("https://www.google.fr");
         mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
         mWebView.setWebViewClient(new WebViewClient() {
@@ -402,7 +423,7 @@ public class PlayerActivity extends AppCompatActivity{
 
                 mCurrentPosition = mVideoView.getCurrentPosition();
                 System.out.println("exécuté toutes les secondes" + String.valueOf(mCurrentPosition));
-                mModel.getmCurrentPosition().setValue(mCurrentPosition);
+                mModel.getmCurrentPosition().postValue(mCurrentPosition);
 
 
             }
