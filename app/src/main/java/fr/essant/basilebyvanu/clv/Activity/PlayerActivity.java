@@ -100,6 +100,24 @@ public class PlayerActivity extends AppCompatActivity{
         // Get the ViewModel.
         mModel = ViewModelProviders.of(this).get(NameViewModel.class);
 
+        //récupération du lien de la vidéo
+        final Uri videoUri = getMedia(VIDEO_SAMPLE);
+
+        //charger la vidéo dans la Video view
+        mVideoView.setVideoURI(videoUri);
+
+        // Charge l'url
+
+        mWebView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();
+            }
+        });
+        mWebView.loadUrl("https://www.google.fr");
+        mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
+
        // mModel.
         //seekcomplete
     }
@@ -118,7 +136,7 @@ public class PlayerActivity extends AppCompatActivity{
                 mCurrentPosition=mModel.getmCurrentPosition().getValue();
                 Log.d("Observer",Integer.toString(mCurrentPosition));
 
-                if(mCurrentPosition<100000){
+                if(mCurrentPosition>200 && mCurrentPosition<100000){
                     debut.setBackgroundColor(0xFFFF0000);
                     chapitre1.setBackgroundColor(android.R.drawable.btn_default);
                     chapitre2.setBackgroundColor(android.R.drawable.btn_default);
@@ -126,7 +144,14 @@ public class PlayerActivity extends AppCompatActivity{
                     fin.setBackgroundColor(android.R.drawable.btn_default);
 
                     String lien = test.getChapitre(0).getLien().replace("\""," ");
-                    mWebView.setWebViewClient(new WebViewClient());
+                    mWebView.setWebViewClient(new WebViewClient() {
+
+                        @Override
+                        public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+                            handler.proceed();
+                        }
+                    });
+                    //mWebView.setWebViewClient(new WebViewClient());
                     mWebView.loadUrl(lien);
                     mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
 
@@ -135,7 +160,7 @@ public class PlayerActivity extends AppCompatActivity{
                 if(mCurrentPosition<200000 && mCurrentPosition>=100000){
                     mWebView.setWebViewClient(new WebViewClient());
                     mWebView.loadUrl(test.getChapitre(10).getLien().replace("\""," "));
-
+//
 
                     chapitre1.setBackgroundColor(0xFFFF0000);
                     debut.setBackgroundColor(android.R.drawable.btn_default);
@@ -189,23 +214,7 @@ public class PlayerActivity extends AppCompatActivity{
         //afficher le texte de chargement de la vidéo
         mBufferingTextView.setVisibility(VideoView.VISIBLE);
 
-        //récupération du lien de la vidéo
-        final Uri videoUri = getMedia(VIDEO_SAMPLE);
 
-        //charger la vidéo dans la Video view
-        mVideoView.setVideoURI(videoUri);
-
-        // Charge l'url
-
-        mWebView.loadUrl("https://www.google.fr");
-        mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
-        mWebView.setWebViewClient(new WebViewClient() {
-
-            @Override
-            public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
-                handler.proceed();
-            }
-        });
 
         /*
          * Les instructions ci-dessous permettent de forcer l'application
@@ -386,6 +395,11 @@ public class PlayerActivity extends AppCompatActivity{
         releasePlayer();
     }
 
+    /*@Override
+    protected void onResume() {
+        super.onResume();
+        mVideoView.seekTo(mModel.getmCurrentPosition().getValue());
+    }*/
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

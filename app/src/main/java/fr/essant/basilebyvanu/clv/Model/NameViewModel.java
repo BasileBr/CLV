@@ -1,6 +1,5 @@
 package fr.essant.basilebyvanu.clv.Model;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
