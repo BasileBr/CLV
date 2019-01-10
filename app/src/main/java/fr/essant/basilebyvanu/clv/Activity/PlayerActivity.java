@@ -31,7 +31,9 @@ import fr.essant.basilebyvanu.clv.Model.NameViewModel;
 import fr.essant.basilebyvanu.clv.Objet.MenuChapitre;
 import fr.essant.basilebyvanu.clv.R;
 
-
+/**
+ * gilebr1
+ */
 public class PlayerActivity extends AppCompatActivity{
 
     private WebView mWebView;
