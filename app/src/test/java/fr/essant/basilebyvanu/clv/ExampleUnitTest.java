@@ -52,7 +52,8 @@ public class ExampleUnitTest {
 
     @After
     public void empty_isCorrect(){
-        assertEquals(0,caisse.empty());
+        caisse.empty();
+
     }
 
 }
