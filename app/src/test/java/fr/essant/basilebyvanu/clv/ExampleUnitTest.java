@@ -13,9 +13,9 @@ public class ExampleUnitTest {
     public CaisseEnregistreuse caisse = new CaisseEnregistreuse();
     @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+        assertEquals(5,caisse.add(5));
+        assertEquals(3,caisse.add(-2));
+        assertEquals(10,caisse.add(7));
     }
 
-    @Test
-    public void
 }
