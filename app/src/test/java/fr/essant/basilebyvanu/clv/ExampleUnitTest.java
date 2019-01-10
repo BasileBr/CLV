@@ -1,8 +1,11 @@
 package fr.essant.basilebyvanu.clv;
 
+import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.regex.Matcher;
 
 import static org.junit.Assert.*;
 
@@ -48,6 +51,14 @@ public class ExampleUnitTest {
         assertEquals(8,caisse.sub(-16));
         assertEquals(6,caisse.sub(2));
         assertEquals(2,caisse.sub(4));
+    }
+
+    @Test
+    public void total_isAPositiveNumber(){
+        caisse.add(10);
+        assertThat(caisse.total(),Matchers.greaterThan(0));
+        caisse.sub(11);
+        assertThat(caisse.total(),Matchers.greaterThan(0));
     }
 
     @After
