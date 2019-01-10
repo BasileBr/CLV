@@ -12,6 +12,9 @@ public class CaisseEnregistreuse {
     public void empty(){
         total = 0;
     }
+    public int total(){
+        return total;
+    }
 
     public int add(int nombre){
         total = total + nombre;
