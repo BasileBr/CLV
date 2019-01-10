@@ -44,7 +44,7 @@ public class ExampleUnitTest {
 
     @Test
     public void sub_isCorrect(){
-        assertEquals(-8,caisse.sub(-8));
+        assertEquals(-8,caisse.sub(8));
         assertEquals(8,caisse.sub(-16));
         assertEquals(6,caisse.sub(-2));
         assertEquals(2,caisse.sub(-4));
