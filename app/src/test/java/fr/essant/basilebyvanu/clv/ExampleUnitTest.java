@@ -38,4 +38,10 @@ public class ExampleUnitTest {
         assertEquals(8,caisse.mult(8));
         assertEquals(-8,caisse.mult(-1));
     }
+    @Test
+    public void sub_isCorrect(){
+        assertEquals(8,caisse.sub(-16));
+        assertEquals(6,caisse.sub(-2));
+        assertEquals(2,caisse.sub(-4));
+    }
 }
