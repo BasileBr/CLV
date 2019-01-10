@@ -28,18 +28,21 @@ public class ExampleUnitTest {
 
     @Test
     public void division_isCorrect(){
+        assertEquals(10,caisse.add(10));
         assertEquals(5, caisse.div(2));
         assertEquals(1, caisse.div(5));
     }
 
     @Test
     public void multiplication_isCorrect(){
+        assertEquals(1,caisse.add(1));
         assertEquals(1,caisse.mult(1));
         assertEquals(8,caisse.mult(8));
         assertEquals(-8,caisse.mult(-1));
     }
     @Test
     public void sub_isCorrect(){
+        assertEquals(-8,caisse.sub(-8));
         assertEquals(8,caisse.sub(-16));
         assertEquals(6,caisse.sub(-2));
         assertEquals(2,caisse.sub(-4));
