@@ -1,5 +1,6 @@
 package fr.essant.basilebyvanu.clv;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,6 +41,7 @@ public class ExampleUnitTest {
         assertEquals(8,caisse.mult(8));
         assertEquals(-8,caisse.mult(-1));
     }
+
     @Test
     public void sub_isCorrect(){
         assertEquals(-8,caisse.sub(-8));
@@ -47,4 +49,10 @@ public class ExampleUnitTest {
         assertEquals(6,caisse.sub(-2));
         assertEquals(2,caisse.sub(-4));
     }
+
+    @After
+    public void empty_isCorrect(){
+        assertEquals(0,caisse.empty());
+    }
+
 }
