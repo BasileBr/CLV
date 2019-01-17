@@ -33,6 +33,6 @@ public class ExampleInstrumentedTest {
     @Test
     public void webViewDisplayProperContent(){
         onWebView()
-                .check(WebViewAssertions.webMatches(getCurrentUrl(),containsString("Big_Bang")));
+                .check(WebViewAssertions.webMatches(getCurrentUrl(),containsString("wiki")));
     }
 }
