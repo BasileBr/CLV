@@ -7,14 +7,11 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import androidx.test.espresso.web.assertion.WebAssertion;
-import androidx.test.espresso.web.assertion.WebViewAssertions;
-import androidx.test.espresso.web.model.Atoms;
-
+import static androidx.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static androidx.test.espresso.web.model.Atoms.getCurrentUrl;
 import static androidx.test.espresso.web.sugar.Web.onWebView;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -33,6 +30,6 @@ public class ExampleInstrumentedTest {
     @Test
     public void webViewDisplayProperContent(){
         onWebView()
-                .check(WebViewAssertions.webMatches(getCurrentUrl(),containsString("wiki")));
+                .check(webMatches(getCurrentUrl(),containsString("wiki")));
     }
 }

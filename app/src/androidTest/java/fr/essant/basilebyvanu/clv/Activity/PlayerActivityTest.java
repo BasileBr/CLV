@@ -1,7 +1,7 @@
 package fr.essant.basilebyvanu.clv.Activity;
 
 
-import android.support.test.espresso.ViewInteraction;
+import androidx.test.espresso.ViewInteraction;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -19,10 +19,11 @@ import org.junit.runner.RunWith;
 
 import fr.essant.basilebyvanu.clv.R;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
@@ -51,7 +52,9 @@ public class PlayerActivityTest {
                                         0),
                                 0),
                         isDisplayed()));
-        button.check(matches(isDisplayed()));
+        button
+
+                .check(matches(isDisplayed()));
 
         ViewInteraction button2 = onView(
                 allOf(withId(R.id.chapitre1),
@@ -61,7 +64,9 @@ public class PlayerActivityTest {
                                         0),
                                 1),
                         isDisplayed()));
-        button2.check(matches(isDisplayed()));
+        button2
+                .perform(click())
+                .check(matches(isDisplayed()));
     }
 
     private static Matcher<View> childAtPosition(
