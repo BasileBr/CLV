@@ -53,7 +53,7 @@ public class ExampleUnitTest {
     @Test
     public void total_isAPositiveNumber(){
         caisse.add(10);
-        assertThat(caisse.total(),Matchers.greaterThan(0));
+         assertThat(caisse.total(),Matchers.greaterThan(0));
         caisse.sub(11);
         assertThat(caisse.total(),Matchers.greaterThan(0));
     }
